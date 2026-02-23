@@ -8,19 +8,7 @@ const imagekit = new ImageKit({
 });
 
 const createPost = async (req, res) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json({ msg: "Token not provided" });
-    }
-
-    let decoded;
-
-    try {
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (err) {
-        return res.status(401).json({ msg: "User Not Authorized" });
-    }
+    const userId = req.user.id;
 
     const file = await imagekit.files.upload({
         file: await toFile(Buffer.from(req.file.buffer), "file"),
@@ -31,28 +19,14 @@ const createPost = async (req, res) => {
     const post = await postModel.create({
         caption: req.body.caption,
         imgUrl: file.url,
-        user: decoded.id,
+        user: userId,
     });
 
     res.status(200).json({ msg: "Post Create success", post });
 };
 
 const getPost = async (req, res) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json({ msg: "Token not provided" });
-    }
-
-    let decoded;
-
-    try {
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (err) {
-        return res.status(401).json({ msg: "User Not Authorized" });
-    }
-
-    const userId = decoded.id;
+    const userId = req.user.id;
     const posts = await postModel.find({ user: userId });
 
     if (!posts) {
@@ -63,21 +37,7 @@ const getPost = async (req, res) => {
 };
 
 const getDetailPost = async (req, res) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json({ msg: "Token not provided" });
-    }
-
-    let decoded;
-
-    try {
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (err) {
-        return res.status(401).json({ msg: "User Not Authorized" });
-    }
-
-    const userId = decoded.id;
+    const userId = req.user.id;
     const postId = req.params.id;
 
     const posts = postModel.findOne({ postId });
