@@ -1,4 +1,5 @@
 const postModel = require("../models/post.model");
+const likeModel = require("../models/like.model");
 const ImageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const jwt = require("jsonwebtoken");
@@ -51,4 +52,35 @@ const getDetailPost = async (req, res) => {
     return res.status(200).json({ msg: "Fetched Success", posts });
 };
 
-module.exports = { createPost, getPost, getDetailPost };
+const likePost = async (req, res) => {
+    try {
+        const userName = req.user.userName;
+        const postId = req.params.postId;
+
+        const postExist = await postModel.findById(postId);
+
+        if (!postExist) {
+            return res.status(404).json({ msg: "Post not found" });
+        }
+
+        const alreadyExist = await likeModel.findOne({
+            user: userName,
+            postId: postId,
+        });
+
+        if (alreadyExist) {
+            return res.status(409).json({ msg: "You already like this post" });
+        }
+
+        const likeRecord = await likeModel.create({
+            user: userName,
+            postId: postId,
+        });
+
+        return res.status(201).json({ msg: "You like this post", likeRecord });
+    } catch (err) {
+        return res.status(500).json({ msg: "Server error", err: err.message });
+    }
+};
+
+module.exports = { createPost, getPost, getDetailPost, likePost };
