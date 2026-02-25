@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
-    const [userName, setUserName] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -11,14 +11,19 @@ const Register = () => {
         e.preventDefault();
         axios
             .post(
-                "http://localhost/api/auth/register",
-                userName,
-                email,
-                password,
+                "http://localhost:3000/api/auth/register",
+                {
+                    username,
+                    email,
+                    password,
+                },
+                {
+                    withCredentials: true,
+                },
             )
             .then((res) => {
                 console.log(res);
-            })
+            });
     };
 
     return (
@@ -31,9 +36,9 @@ const Register = () => {
                     }}
                 >
                     <input
-                        value={userName}
+                        value={username}
                         onInput={(e) => {
-                            setUserName(e.target.value);
+                            setUsername(e.target.value);
                         }}
                         type="text"
                         placeholder="Enter Username"
