@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import "../style/style.scss";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { handleLogin, loading } = useAuth();
+    const navigate = useNavigate();
+
+    if (loading) {
+        return <h1>Loading..</h1>;
+    }
 
     const handleForm = async (e) => {
         e.preventDefault();
-        axios
-            .post(
-                "http://localhost:3000/api/auth/login",
-                {
-                    username,
-                    password,
-                },
-                {
-                    withCredentials: true,
-                },
-            )
-            .then((res) => {
-                console.log(res);
-            });
+
+        handleLogin(username, password).then((res) => {
+            console.log(res);
+            navigate("/");
+        });
     };
 
     return (
