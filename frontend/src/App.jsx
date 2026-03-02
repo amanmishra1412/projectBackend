@@ -2,11 +2,14 @@ import React from "react";
 import AppRoutes from "./AppRoutes";
 import "./style.scss";
 import AuthProvider from "./features/auth/AuthProvider";
+import { PostProvider } from "./features/post/post.context";
 
 const App = () => {
     return (
         <AuthProvider>
-            <AppRoutes />
+            <PostProvider>
+                <AppRoutes />
+            </PostProvider>
         </AuthProvider>
     );
 };

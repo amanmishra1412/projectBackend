@@ -1,0 +1,75 @@
+.feedPage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    .feed {
+        max-width: 300px;
+        width: 100%;
+
+        .posts {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .post {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-inline: 0.5rem;
+            padding-block: 0.5rem;
+            background: rgba(228, 111, 111, 0.644);
+
+            .user {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+
+                .img-wrapper {
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 2px solid rgb(255, 0, 0, 0);
+                    background: conic-gradient(red, green) border-box;
+                }
+
+                img {
+                    width: 2rem;
+                    aspect-ratio: 1/1;
+                    border-radius: 50%;
+                }
+            }
+
+            .icon{
+
+                display: flex;
+                justify-content: space-between;
+
+                .left{
+                    display: flex;
+                    gap: 0.75rem;
+
+                }
+
+                svg{
+                    width: 1rem;
+                    aspect-ratio: 1/1;
+                    color: white;
+                }
+                button{
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                }
+            }
+
+            .img {
+                width: 100%;
+            }
+        }
+    }
+}

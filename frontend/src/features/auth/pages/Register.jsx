@@ -17,10 +17,8 @@ const Register = () => {
     const handleForm = async (e) => {
         e.preventDefault();
 
-        handleRegister(username, email, password).then((res) => {
-            console.log(res);
-            navigate("/login");
-        });
+        await handleRegister(username, email, password);
+        navigate("/login");
     };
 
     return (

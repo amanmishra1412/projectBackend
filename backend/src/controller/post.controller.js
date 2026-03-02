@@ -82,4 +82,10 @@ const likePost = async (req, res) => {
     }
 };
 
-module.exports = { createPost, getPost, getDetailPost, likePost };
+const feedPost = async (req, res) => {
+    const posts = await postModel.find().populate("user");
+
+    res.status(200).json({ msg: "Success", posts });
+};
+
+module.exports = { createPost, getPost, getDetailPost, likePost, feedPost };
