@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { getFeed } from "../services/post.api";
+import { useContext, useEffect } from "react";
+import { createPost, getFeed } from "../services/post.api";
 import { PostContext } from "../post.context";
 
 export const usePost = () => {
@@ -13,5 +13,16 @@ export const usePost = () => {
         setLoading(false);
     };
 
-    return { loading, feed, post, handleGetFeed };
+    useEffect(() => {
+        handleGetFeed();
+    }, []);
+
+    const handlePostCreate = async (file, caption) => {
+        setLoading(true);
+        const res = await createPost(file, caption);
+        setFeed(res.data);
+        setLoading(false);
+    };
+
+    return { loading, feed, post, handleGetFeed, handlePostCreate };
 };
