@@ -1,25 +1,20 @@
 import React from "react";
 
-const Post = ({user,post}) => {
+const Post = ({ user, post }) => {
     return (
         <div className="post">
             <div className="user">
                 <div className="img-wrapper">
-                    <img
-                        src="https://images.unsplash.com/photo-1772290776039-f69b60d78aa3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
-                        alt=""
-                    />
+                    <img src={user.profileImage} alt="" />
                 </div>
-                <p>Usernaem</p>
+                <p>{user.username}</p>
             </div>
-            <img
-                src="https://images.unsplash.com/photo-1772339014113-29414e7295b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
-                alt=""
-            />
+            <img src={post.imgUrl} alt="" />
             <div className="icon">
                 <div className="left">
                     <button>
                         <svg
+                            className={post.isLiked ? "liked" : ""}
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
@@ -59,7 +54,7 @@ const Post = ({user,post}) => {
                 </div>
             </div>
             <div className="bottom">
-                <p className="caption">Caption</p>
+                <p className="caption">{post.caption}</p>
             </div>
         </div>
     );

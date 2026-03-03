@@ -16,10 +16,8 @@ const Login = () => {
     const handleForm = async (e) => {
         e.preventDefault();
 
-        handleLogin(username, password).then((res) => {
-            console.log(res);
-            navigate("/");
-        });
+        await handleLogin(username, password);
+        navigate("/");
     };
 
     return (

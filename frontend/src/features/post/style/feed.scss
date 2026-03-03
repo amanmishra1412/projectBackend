@@ -21,7 +21,7 @@
             gap: 0.5rem;
             padding-inline: 0.5rem;
             padding-block: 0.5rem;
-            background: rgba(228, 111, 111, 0.644);
+            background: rgba(76, 39, 39, 0.644);
 
             .user {
                 display: flex;
@@ -53,7 +53,12 @@
                     display: flex;
                     gap: 0.75rem;
 
+                    .liked{
+                        color: red;
+                    }
                 }
+
+                
 
                 svg{
                     width: 1rem;

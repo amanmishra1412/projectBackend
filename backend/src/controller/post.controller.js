@@ -83,7 +83,18 @@ const likePost = async (req, res) => {
 };
 
 const feedPost = async (req, res) => {
-    const posts = await postModel.find().populate("user");
+    const user = req.user;
+    const posts = await Promise.all(
+        (await postModel.find().populate("user").lean()).map(async (post) => {
+            const isLike = await likeModel.findOne({
+                user: user.userName,
+                postId: post._id,
+            });
+
+            post.isLiked = Boolean(isLike);
+            return post;
+        }),
+    );
 
     res.status(200).json({ msg: "Success", posts });
 };

@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const likeSchema = new mongoose.Schema(
     {
         user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users",
-            required: [true, "User id required"],
+            type: String,
         },
         postId: {
             type: mongoose.Schema.Types.ObjectId,
