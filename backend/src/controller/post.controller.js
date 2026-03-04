@@ -82,6 +82,34 @@ const likePost = async (req, res) => {
     }
 };
 
+const unLikePost = async (req, res) => {
+    try {
+        const userName = req.user.userName;
+        const postId = req.params.postId;
+
+        const postExist = await postModel.findById(postId);
+
+        if (!postExist) {
+            return res.status(404).json({ msg: "Post not found" });
+        }
+
+        const alreadyExist = await likeModel.findOne({
+            user: userName,
+            postId: postId,
+        });
+
+        if (!alreadyExist) {
+            return res.status(409).json({ msg: "You  not like post" });
+        }
+        const likeId = alreadyExist._id;
+        const likeRecord = await likeModel.findOneAndDelete({ _id: likeId });
+
+        return res.status(201).json({ msg: "Unlike success" });
+    } catch (err) {
+        return res.status(500).json({ msg: "Server error", err: err.message });
+    }
+};
+
 const feedPost = async (req, res) => {
     const user = req.user;
     const posts = await Promise.all(
@@ -99,4 +127,11 @@ const feedPost = async (req, res) => {
     res.status(200).json({ msg: "Success", posts });
 };
 
-module.exports = { createPost, getPost, getDetailPost, likePost, feedPost };
+module.exports = {
+    createPost,
+    getPost,
+    getDetailPost,
+    likePost,
+    unLikePost,
+    feedPost,
+};

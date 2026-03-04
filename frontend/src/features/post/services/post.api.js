@@ -18,3 +18,13 @@ export const createPost = async (file, caption) => {
     const res = await api.post("/api/post", formdata);
     return res.data;
 };
+
+export const likePost = async (postId) => {
+    const res = await api.post(`/api/post/like/${postId}`);
+    return res.data;
+};
+
+export const unLikePost = async (postId) => {
+    const res = await api.post(`/api/post/unlike/${postId}`);
+    return res.data;
+};
