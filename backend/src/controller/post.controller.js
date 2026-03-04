@@ -87,7 +87,7 @@ const unLikePost = async (req, res) => {
         const userName = req.user.userName;
         const postId = req.params.postId;
 
-        const postExist = await postModel.findById(postId);
+        const postExist = await likeModel.findById(postId);
 
         if (!postExist) {
             return res.status(404).json({ msg: "Post not found" });
